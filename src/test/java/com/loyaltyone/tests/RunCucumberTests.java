@@ -23,5 +23,6 @@ public class RunCucumberTests{
 		Reporter.loadXMLConfig(new File("src/test/resources/extent-config.xml"));
 		Reporter.setSystemInfo("Endpoint", reader.getUrl());
 		Reporter.setSystemInfo("Test Suite", "StarWars Rest API");
+		
 	}
 }

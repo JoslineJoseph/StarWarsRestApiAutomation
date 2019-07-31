@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Optional;
-
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 
@@ -13,6 +11,7 @@ import com.google.gson.Gson;
 import com.loyaltyone.response.People;
 import com.loyaltyone.response.Peoples;
 import com.loyaltyone.utility.HttpUtility;
+import com.loyaltyone.utility.LoggerUtility;
 import com.loyaltyone.utility.StarWarsPropertyReader;
 
 import cucumber.api.java.en.And;
@@ -30,9 +29,11 @@ public class StarWarsPeoplesStepDefinition {
 	StarWarsPropertyReader reader = new StarWarsPropertyReader();
 	int characterListCount = 0;
 	int loopCounter = 0;
+	LoggerUtility log = new LoggerUtility("StarWarsPeopleStepDefinition");
 
 	@Given("The Peoples API is called")
 	public void the_API_is_returning_success_response() {
+		
 		String peoplesApi = reader.getAllCharacterRestAPI();
 		do {
 			StringBuffer result = new StringBuffer();
@@ -59,12 +60,13 @@ public class StarWarsPeoplesStepDefinition {
 			loopCounter++;
 			characterListCount += starWarCharactersRecord.getResults().size();
 		}while(starWarCharactersRecord.getNext()!=null);
-
+		log.info("Called peoples API to get list of all star wars characters");
+		log.info("Total No of Pages Accessed to get all star wars characters -" +loopCounter);
 	}
 
 	@When("The peoples API returns success message")
 	public void the_Response_has_List_of_Characters() {
-
+		log.info("Validating The Peoples API returned Success response");
 		Assert.assertEquals("Count from Result Response is not matching with List of characters Retrieved",
 				loopCounter, characterList.size());
 		for(Peoples characterRecord: characterList)
@@ -72,7 +74,8 @@ public class StarWarsPeoplesStepDefinition {
 			Assert.assertNotNull("Count Field in the Response should not be null", characterRecord.getCount());
 			Assert.assertFalse("List of characters in each character List should not be null", characterRecord.getResults().isEmpty());
 		}
-
+		
+		log.info("Validated count and results for each page. ");
 	}
 
 	@Then("Ensure All Characters are retrieved")
@@ -83,6 +86,7 @@ public class StarWarsPeoplesStepDefinition {
 			Assert.assertEquals("Count from Result Response is not matching with List of characters Retrieved",peoples.getCount(), characterListCount,0);
 			for(People character : peoples.getResults())
 			{
+				log.info("Validating details of " + character.getName());
 				Assert.assertNotNull("Name Should be present for Character", character.getName());
 				Assert.assertNotNull(character.getName() + " Should have a URL", character.getUrl());
 				Assert.assertNotNull(character.getName() + " Should have height",character.getHeight());
@@ -93,6 +97,7 @@ public class StarWarsPeoplesStepDefinition {
 				Assert.assertNotNull(character.getName() + " Should have eye_color", character.getEye_color());
 				Assert.assertNotNull(character.getName() + " Should have gender",character.getGender());
 				Assert.assertNotNull(character.getName() + " Should have a homeworld", character.getHomeworld());
+				log.info("Verified Url, Height, Mass, hair color, skin color, birth year, eye color, gender, homeworld of " + character.getName());
 			}
 		}
 
@@ -100,6 +105,7 @@ public class StarWarsPeoplesStepDefinition {
 
 	@And("User is able to search for a particular character")
 	public void searchForUserInCharacterList() {
+		log.info("Verify User is able to search for "+ reader.getCharacterName());
 		boolean isCharacterSearchedFound = false;
 		for(Peoples peoples : characterList ) {
 			for(People  people: peoples.getResults()) {
@@ -113,6 +119,7 @@ public class StarWarsPeoplesStepDefinition {
 			}
 		}
 		Assert.assertTrue(reader.getCharacterName()+ " is not found in Character List", isCharacterSearchedFound);
+		log.info("Verified User is able to search for "+ reader.getCharacterName());
 	}
 	
 	@Given("The API for retrieving single character is called")
@@ -135,12 +142,15 @@ public class StarWarsPeoplesStepDefinition {
 		}
 		Gson gson = new Gson();
 		singleCharacter = gson.fromJson(result.toString(), People.class);
+		log.info("API returned success message for "+ singleCharacter.getName() );
 
 	}
 
 	@When("The API returns details about a Single Character")
 	public void validateSingleCharacterResponseStatus() {
 		Assert.assertNotNull("Character Name should not be empty",singleCharacter.getName());
+		log.info("Sucessfully Validated single star war character returned success response");
+
 	}
 
 	@Then("Ensure record of Single Character is retrieved")
@@ -158,6 +168,7 @@ public class StarWarsPeoplesStepDefinition {
 		Assert.assertNotNull(singleCharacter.getName() + " Should have gender",singleCharacter.getGender());
 		Assert.assertNotNull(singleCharacter.getName() + " Should have a homeworld", singleCharacter.getHomeworld());
 
+		log.info("Validated Details of " + singleCharacter.getName());
 	}
 
 }
