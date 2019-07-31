@@ -28,47 +28,41 @@ public class StarWarsPropertyReader {
 	}
 
 	public String getReportConfigPath(){
-		String reportConfigPath = starWarsProperty.getProperty("reportConfigPath");
-		return reportConfigPath;
-
+		return starWarsProperty.getProperty("reportConfigPath");
 	}
 
 	public String getUrl() {
 		return starWarsProperty.getProperty("url");
 	}
-	private String getFetch_all_characters() {
-		return starWarsProperty.getProperty("fetch_all_characters");
-	}
-	private String getFetch_single_character() {
-		return starWarsProperty.getProperty("fetch_single_character");
-	}
-	private String getFetch_all_planets() {
-		return starWarsProperty.getProperty("fetch_all_planets");
-	}
-	private String getFetch_single_planet() {
-		return starWarsProperty.getProperty("fetch_single_planet");
-	}
+	
 
 	public String getAllCharacterRestAPI() {
-		return getUrl()+getFetch_all_characters();
+		return getUrl()+starWarsProperty.getProperty("fetch_all_characters");
 	}
 
 	public String getSingleCharacterRestAPI() {
-		return getUrl()+getFetch_single_character().replace("{{id}}", starWarsProperty.getProperty("character_id"));
+		return getUrl()+starWarsProperty.getProperty("fetch_single_character").replace("{{id}}", starWarsProperty.getProperty("character_id"));
 
 	}
 
 	public String getAllPlanetAPI() {
-		return getUrl()+getFetch_all_planets();
+		return getUrl()+starWarsProperty.getProperty("fetch_all_planets");
 	}
 
 
 	public String getSinglePlanetAPI() {
-		return getUrl()+ getFetch_single_planet().replace("{{id}}", starWarsProperty.getProperty("planet_id"));
+		return getUrl()+ starWarsProperty.getProperty("fetch_single_planet").replace("{{id}}", starWarsProperty.getProperty("planet_id"));
 	}
 
-	public String getCharacterName() {
-		return starWarsProperty.getProperty("character_name");
+	public String getCharacterSearchAPI() {
+		return getUrl()+ starWarsProperty.getProperty("char_search_api");
 	}
+	
+	public String getPlanetSearchAPI() {
+		return getUrl()+ starWarsProperty.getProperty("planet_search_api");
+	}
+	
+	
+	
 
 }

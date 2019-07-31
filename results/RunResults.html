@@ -51,7 +51,7 @@
 		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 			<li>
                 <a href='#!'>
-                    <span class='label suite-start-time blue darken-3'>Jul 30, 2019 11:01:44 PM</span>
+                    <span class='label suite-start-time blue darken-3'>Jul 31, 2019 10:43:48 AM</span>
 				</a>
 			</li>
 			<li>
@@ -142,7 +142,7 @@
 					<canvas id='child-analysis' width='100' height='80'></canvas>
 				</div>
 				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>4</span> scenario(s) passed</span>
+					<span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>6</span> scenario(s) passed</span>
 				</div>
 				<div class='block text-small'>
 					<span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> scenario(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
@@ -157,7 +157,7 @@
 					<canvas id='grandchild-analysis' width='100' height='80'></canvas>
 				</div>
 				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>14</span> step(s) passed</span>
+					<span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>18</span> step(s) passed</span>
 				</div>
 				<div class='block text-small'>
 					<span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
@@ -177,12 +177,12 @@
 				<li class='test displayed active has-leaf pass' status='pass' bdd='true' test-id='1'>
 					<div class='test-heading'>
 						<span class='test-name'>This feature tests if we can retrieve all star wars characters or retrieve detail about a single star war character</span>
-						<span class='test-time'>Jul 30, 2019 11:01:44 PM</span>
+						<span class='test-time'>Jul 31, 2019 10:43:48 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='scenario node' test-id='2' status='pass'>
-	<span class='duration right label'>0h 0m 21s+19ms</span>
+	<span class='duration right label'>0h 0m 6s+360ms</span>
 	<div class='desc'>
 		<b>Scenario</b>
 		<span class="desc-text">Scenario to retrieve all the characters present in Star Wars Movie</span>
@@ -212,24 +212,16 @@
 				<div class='pre'>passed</div>
 			
 		</li>
-		<li test-id='6' class='node and pass' status='pass'>
-			
-			<b>And</b>
-			
-			<span class="bdd-step-name">And User is able to search for a particular character</span>
-				<div class='pre'>passed</div>
-			
-		</li>
 	</ul>
 </div>
-<div class='scenario node' test-id='7' status='pass'>
-	<span class='duration right label'>0h 0m 0s+655ms</span>
+<div class='scenario node' test-id='6' status='pass'>
+	<span class='duration right label'>0h 0m 0s+507ms</span>
 	<div class='desc'>
 		<b>Scenario</b>
 		<span class="desc-text">Scenario to check if we can retrive details of a single character of star wars movie. This tests for character 1 Luke Skywalker</span>
 	</div>
 	<ul class='steps'>
-		<li test-id='8' class='node given pass' status='pass'>
+		<li test-id='7' class='node given pass' status='pass'>
 			
 			<b>Given</b>
 			
@@ -237,7 +229,7 @@
 				<div class='pre'>passed</div>
 			
 		</li>
-		<li test-id='9' class='node when pass' status='pass'>
+		<li test-id='8' class='node when pass' status='pass'>
 			
 			<b>When</b>
 			
@@ -245,7 +237,7 @@
 				<div class='pre'>passed</div>
 			
 		</li>
-		<li test-id='10' class='node then pass' status='pass'>
+		<li test-id='9' class='node then pass' status='pass'>
 			
 			<b>Then</b>
 			
@@ -255,25 +247,58 @@
 		</li>
 	</ul>
 </div>
+<div class='scenario node' test-id='10' status='pass'>
+	<span class='duration right label'>0h 0m 0s+435ms</span>
+	<div class='desc'>
+		<b>Scenario</b>
+		<span class="desc-text">Scenario to check if user can search for a character</span>
+	</div>
+	<ul class='steps'>
+		<li test-id='11' class='node given pass' status='pass'>
+			
+			<b>Given</b>
+			
+			<span class="bdd-step-name">Given The API can search for "Lu"</span>
+				<div class='pre'>passed</div>
+			
+		</li>
+		<li test-id='12' class='node when pass' status='pass'>
+			
+			<b>When</b>
+			
+			<span class="bdd-step-name">When The API returns List of People</span>
+				<div class='pre'>passed</div>
+			
+		</li>
+		<li test-id='13' class='node then pass' status='pass'>
+			
+			<b>Then</b>
+			
+			<span class="bdd-step-name">Then Validate the List returns People Having "Lu" in their name</span>
+				<div class='pre'>passed</div>
+			
+		</li>
+	</ul>
+</div>
 					</div>
 				</li>
 				
 				
-				<li class='test displayed active has-leaf pass' status='pass' bdd='true' test-id='11'>
+				<li class='test displayed active has-leaf pass' status='pass' bdd='true' test-id='14'>
 					<div class='test-heading'>
 						<span class='test-name'>This feature tests to check if we can retrieve all planets in star wars movie</span>
-						<span class='test-time'>Jul 30, 2019 11:02:06 PM</span>
+						<span class='test-time'>Jul 31, 2019 10:43:56 AM</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
-<div class='scenario node' test-id='12' status='pass'>
-	<span class='duration right label'>0h 0m 3s+658ms</span>
+<div class='scenario node' test-id='15' status='pass'>
+	<span class='duration right label'>0h 0m 2s+7ms</span>
 	<div class='desc'>
 		<b>Scenario</b>
 		<span class="desc-text">Scenario to retrieve all the planets present in Star Wars Movie</span>
 	</div>
 	<ul class='steps'>
-		<li test-id='13' class='node given pass' status='pass'>
+		<li test-id='16' class='node given pass' status='pass'>
 			
 			<b>Given</b>
 			
@@ -281,7 +306,7 @@
 				<div class='pre'>passed</div>
 			
 		</li>
-		<li test-id='14' class='node when pass' status='pass'>
+		<li test-id='17' class='node when pass' status='pass'>
 			
 			<b>When</b>
 			
@@ -289,7 +314,7 @@
 				<div class='pre'>passed</div>
 			
 		</li>
-		<li test-id='15' class='node then pass' status='pass'>
+		<li test-id='18' class='node then pass' status='pass'>
 			
 			<b>Then</b>
 			
@@ -297,24 +322,16 @@
 				<div class='pre'>passed</div>
 			
 		</li>
-		<li test-id='16' class='node and pass' status='pass'>
-			
-			<b>And</b>
-			
-			<span class="bdd-step-name">And User can search for "Tatooine" planet</span>
-				<div class='pre'>passed</div>
-			
-		</li>
 	</ul>
 </div>
-<div class='scenario node' test-id='17' status='pass'>
-	<span class='duration right label'>0h 0m 0s+351ms</span>
+<div class='scenario node' test-id='19' status='pass'>
+	<span class='duration right label'>0h 0m 0s+275ms</span>
 	<div class='desc'>
 		<b>Scenario</b>
 		<span class="desc-text">Scenario to check if we can retrive details of a single Planet of star wars movie.</span>
 	</div>
 	<ul class='steps'>
-		<li test-id='18' class='node given pass' status='pass'>
+		<li test-id='20' class='node given pass' status='pass'>
 			
 			<b>Given</b>
 			
@@ -322,7 +339,7 @@
 				<div class='pre'>passed</div>
 			
 		</li>
-		<li test-id='19' class='node when pass' status='pass'>
+		<li test-id='21' class='node when pass' status='pass'>
 			
 			<b>When</b>
 			
@@ -330,11 +347,44 @@
 				<div class='pre'>passed</div>
 			
 		</li>
-		<li test-id='20' class='node then pass' status='pass'>
+		<li test-id='22' class='node then pass' status='pass'>
 			
 			<b>Then</b>
 			
 			<span class="bdd-step-name">Then Verify the values of Single Planet API</span>
+				<div class='pre'>passed</div>
+			
+		</li>
+	</ul>
+</div>
+<div class='scenario node' test-id='23' status='pass'>
+	<span class='duration right label'>0h 0m 0s+434ms</span>
+	<div class='desc'>
+		<b>Scenario</b>
+		<span class="desc-text">Scenario to check if we can search for a planet using name</span>
+	</div>
+	<ul class='steps'>
+		<li test-id='24' class='node given pass' status='pass'>
+			
+			<b>Given</b>
+			
+			<span class="bdd-step-name">Given The API is able to search for "To"</span>
+				<div class='pre'>passed</div>
+			
+		</li>
+		<li test-id='25' class='node when pass' status='pass'>
+			
+			<b>When</b>
+			
+			<span class="bdd-step-name">When The API returns List of Planets</span>
+				<div class='pre'>passed</div>
+			
+		</li>
+		<li test-id='26' class='node then pass' status='pass'>
+			
+			<b>Then</b>
+			
+			<span class="bdd-step-name">Then Validate the List returns Planets Having "To" in their name</span>
 				<div class='pre'>passed</div>
 			
 		</li>
@@ -383,31 +433,31 @@
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Scenarios
-					<div class='panel-lead'>4</div>
+					<div class='panel-lead'>6</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Steps
-					<div class='panel-lead'>14</div>
+					<div class='panel-lead'>18</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Start
-					<div class='panel-lead'>Jul 30, 2019 11:01:44 PM</div>
+					<div class='panel-lead'>Jul 31, 2019 10:43:48 AM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 			 		End
-			 		<div class='panel-lead'>Jul 30, 2019 11:02:10 PM</div>
+			 		<div class='panel-lead'>Jul 31, 2019 10:43:58 AM</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Time Taken
-					<div class='panel-lead'>26,306ms</div>
+					<div class='panel-lead'>10,344ms</div>
 				</div>
 			</div>
 			<div class='col s4'>
@@ -421,7 +471,7 @@
 						</tr>
 							<tr>
 								<td>Endpoint</td>
-								<td>https://swapi.co/</td>
+								<td>https://swapi.co/api/</td>
 							</tr>
 							<tr>
 								<td>Test Suite</td>
@@ -448,7 +498,7 @@
 				skipParent: 0,
 				exceptionsParent: 0,
 				
-				passChild: 4,
+				passChild: 6,
 				failChild: 0,
 				fatalChild: 0,
 				errorChild: 0,
@@ -457,7 +507,7 @@
 				infoChild: 0,
 				exceptionsChild: 0,
 				
-				passGrandChild: 14,
+				passGrandChild: 18,
 				failGrandChild: 0,
 				fatalGrandChild: 0,
 				errorGrandChild: 0,

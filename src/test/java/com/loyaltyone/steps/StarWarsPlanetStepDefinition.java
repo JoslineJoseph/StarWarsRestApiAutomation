@@ -24,6 +24,7 @@ public class StarWarsPlanetStepDefinition {
 	Planet aPlanet = new Planet();
 	ArrayList < Planets > planetsList = new ArrayList < Planets > ();
 	Planets aPlanetRecord = new Planets();
+	Planets searchPlanets = new Planets();
 	StarWarsPropertyReader reader = new StarWarsPropertyReader();
 	int planetListCounter = 0;
 	int loopCounter = 0;
@@ -160,5 +161,47 @@ public class StarWarsPlanetStepDefinition {
 		log.info("Validated Details of " + aPlanet.getName());
 
 	}
+	
+
+@Given("^The user is able to search for planet \"([^\"]*)\"$")
+public void the_API_is_able_to_search_for_planet(String searchString) {
+	String searchApiEndpoint = reader.getPlanetSearchAPI().replace("{{search_input}}", searchString);
+	log.info(searchApiEndpoint);
+	StringBuffer result = new StringBuffer();
+	HttpResponse response = HttpUtility.sendGet(searchApiEndpoint);
+	Assert.assertEquals(200, response.getStatusLine().getStatusCode());
+	try {
+		BufferedReader rd = new BufferedReader(
+				new InputStreamReader(response.getEntity().getContent()));
+		String line = "";
+		while ((line = rd.readLine()) != null) {
+			result.append(line);
+		}
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	Gson gson = new Gson();
+	searchPlanets = gson.fromJson(result.toString(), Planets.class);
+}
+
+@When("^The API returns List of Planets$")
+public void the_API_returns_List_of_Planets()  {
+	Assert.assertTrue("Search List Does not have Any Planets", searchPlanets.getCount()>=1);
+	log.info("Search API returned a list of Planets. Count: "+ searchPlanets.getCount());
+}
+
+@Then("^Validate the List returns Planets Having \"([^\"]*)\" in their name$")
+public void validate_the_List_returns_Planets_Having_in_their_name(String searchString)  {
+	for (Planet planet: searchPlanets.getResults()) {
+		log.info(planet.getName()+ " is returned in Search List");
+		Assert.assertTrue(searchString +" is not Found in Name " + planet.getName(), 
+				planet.getName().toUpperCase().contains(searchString.toUpperCase()));
+	}
+	log.info("Sucessfully validated User is able to search with planet name");
+   
+}
+
+
 
 }

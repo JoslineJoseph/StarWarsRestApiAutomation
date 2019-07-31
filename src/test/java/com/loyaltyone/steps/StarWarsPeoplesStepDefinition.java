@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
 import org.apache.http.HttpResponse;
 import org.junit.Assert;
 
@@ -14,7 +15,6 @@ import com.loyaltyone.utility.HttpUtility;
 import com.loyaltyone.utility.LoggerUtility;
 import com.loyaltyone.utility.StarWarsPropertyReader;
 
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -26,6 +26,7 @@ public class StarWarsPeoplesStepDefinition {
 	People singleCharacter = new People();
 	ArrayList < Peoples > characterList = new ArrayList < Peoples > ();
 	Peoples starWarCharactersRecord = new Peoples();
+	Peoples searchResult = new Peoples();
 	StarWarsPropertyReader reader = new StarWarsPropertyReader();
 	int characterListCount = 0;
 	int loopCounter = 0;
@@ -103,25 +104,6 @@ public class StarWarsPeoplesStepDefinition {
 
 	}
 
-	@And("User is able to search for a particular character")
-	public void searchForUserInCharacterList() {
-		log.info("Verify User is able to search for "+ reader.getCharacterName());
-		boolean isCharacterSearchedFound = false;
-		for(Peoples peoples : characterList ) {
-			for(People  people: peoples.getResults()) {
-				if (people.getName().equalsIgnoreCase(reader.getCharacterName())) {
-					isCharacterSearchedFound = true;
-					break;
-				}
-			}
-			if (isCharacterSearchedFound) {
-				break;
-			}
-		}
-		Assert.assertTrue(reader.getCharacterName()+ " is not found in Character List", isCharacterSearchedFound);
-		log.info("Verified User is able to search for "+ reader.getCharacterName());
-	}
-	
 	@Given("The API for retrieving single character is called")
 	public void getSingleCharacterAPI() {
 		String peoplesApi = reader.getSingleCharacterRestAPI();
@@ -170,6 +152,46 @@ public class StarWarsPeoplesStepDefinition {
 
 		log.info("Validated Details of " + singleCharacter.getName());
 	}
+	
+	
+	@Given("^The user can search for \"([^\"]*)\"$")
+	public void the_API_can_search_for_character(String searchString)  {
+		String searchApiEndpoint = reader.getCharacterSearchAPI().replace("{{search_input}}", searchString);
+		log.info(searchApiEndpoint);
+		StringBuffer result = new StringBuffer();
+		HttpResponse response = HttpUtility.sendGet(searchApiEndpoint);
+		Assert.assertEquals(200, response.getStatusLine().getStatusCode());
+		try {
+			BufferedReader rd = new BufferedReader(
+					new InputStreamReader(response.getEntity().getContent()));
+			String line = "";
+			while ((line = rd.readLine()) != null) {
+				result.append(line);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Gson gson = new Gson();
+		searchResult = gson.fromJson(result.toString(), Peoples.class);
+    
+	}
 
+	@When("^The API returns List of People$")
+	public void the_API_returns_List_of_People() throws Throwable {
+
+		Assert.assertTrue("Search List Does not have Any People", searchResult.getCount()>=1);
+		log.info("Search API returned a list of people. Count: "+ searchResult.getCount());
+	}
+
+	@Then("^Validate the List returns People Having \"([^\"]*)\" in their name$")
+	public void validate_the_List_returns_People_Having_in_their_name(String searchString) throws Throwable {
+		for (People people: searchResult.getResults()) {
+			log.info(people.getName()+ " is returned in Search List");
+			Assert.assertTrue(searchString +" is not Found in Name "+ people.getName(), 
+					people.getName().toUpperCase().contains(searchString.toUpperCase()));
+		}
+		log.info("Sucessfully validated User is able to search character name");
 }
 
+}
