@@ -96,25 +96,7 @@ public class StarWarsPlanetStepDefinition {
 
 	}
 	
-	@Then("^User can search for \"([^\"]*)\" planet$")
-	public void searchForAPlanet(String planetName) {
-		boolean isPlanetSearchedFound = false;
-		for(Planets planets : planetsList ) {
-			for(Planet  planet: planets.getResults()) {
-				if (planet.getName().equalsIgnoreCase(planetName)) {
-					isPlanetSearchedFound = true;
-					break;
-				}
-			}
-			if (isPlanetSearchedFound) {
-				break;
-			}
-		}
-		Assert.assertTrue(planetName+ " is not found in Planet List", isPlanetSearchedFound);
-		log.info("Verified User is able to search for "+ planetName);
-
-	}
-
+	
 	@Given("The API for retrieving single Planet is called")
 	public void callPlanetApiforSinglePlanet() {
 		String singlePlanetApi = reader.getSinglePlanetAPI();
