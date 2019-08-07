@@ -186,14 +186,18 @@ public class StarWarsPeoplesStepDefinition {
 	}
 
 	@When("^The API returns List of People$")
-	public void the_API_returns_List_of_People() throws Throwable {
+	public void the_API_returns_List_of_People() {
 
 		Assert.assertTrue("Search List Does not have Any People", searchResult.getCount()>=1);
 		log.info("Search API returned a list of people. Count: "+ searchResult.getCount());
 	}
 
 	@Then("^Validate the List returns People Having \"([^\"]*)\" in their name$")
-	public void validate_the_List_returns_People_Having_in_their_name(String searchString) throws Throwable {
+	public void validate_the_List_returns_People_Having_in_their_name(String searchString){
+		String character_name;
+		character_name=System.getProperty("character_name");
+		
+		searchString=(character_name==null)?searchString:character_name;
 		for (People people: searchResult.getResults()) {
 			log.info(people.getName()+ " is returned in Search List");
 			Assert.assertTrue(searchString +" is not Found in Name "+ people.getName(), 
