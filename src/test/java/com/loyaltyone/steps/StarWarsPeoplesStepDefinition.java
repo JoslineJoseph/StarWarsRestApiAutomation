@@ -3,16 +3,17 @@ package com.loyaltyone.steps;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 
 import com.google.gson.Gson;
 import com.loyaltyone.response.People;
 import com.loyaltyone.response.Peoples;
 import com.loyaltyone.utility.HttpUtility;
-import com.loyaltyone.utility.LoggerUtility;
 import com.loyaltyone.utility.StarWarsPropertyReader;
 
 import cucumber.api.java.en.Given;
@@ -30,8 +31,8 @@ public class StarWarsPeoplesStepDefinition {
 	StarWarsPropertyReader reader = new StarWarsPropertyReader();
 	int characterListCount = 0;
 	int loopCounter = 0;
-	LoggerUtility log = new LoggerUtility("StarWarsPeopleStepDefinition");
-
+	Logger log = Logger.getLogger(StarWarsPeoplesStepDefinition.class.getName());
+	
 	@Given("The Peoples API is called")
 	public void the_API_is_returning_success_response() {
 		
@@ -156,7 +157,14 @@ public class StarWarsPeoplesStepDefinition {
 	
 	@Given("^The user can search for \"([^\"]*)\"$")
 	public void the_API_can_search_for_character(String searchString)  {
-		String searchApiEndpoint = reader.getCharacterSearchAPI().replace("{{search_input}}", searchString);
+		String character_name;
+		character_name=System.getProperty("character_name");
+		
+		searchString=(character_name==null)?searchString:character_name;
+		log.info("Searching for "+ searchString);
+		
+		String searchApiEndpoint = reader.getCharacterSearchAPI().replace("{{search_input}}",
+				URLEncoder.encode(searchString));
 		log.info(searchApiEndpoint);
 		StringBuffer result = new StringBuffer();
 		HttpResponse response = HttpUtility.sendGet(searchApiEndpoint);

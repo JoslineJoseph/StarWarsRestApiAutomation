@@ -7,12 +7,13 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.log4j.Logger;
 
 public class HttpUtility {
 	
 	public static HttpResponse sendGet(String url) {
 
-		LoggerUtility log = new LoggerUtility("");
+		Logger log = Logger.getLogger(HttpUtility.class.getName());
 		log.info("Starting Http Get Request for "+ url);
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet request = new HttpGet(url);

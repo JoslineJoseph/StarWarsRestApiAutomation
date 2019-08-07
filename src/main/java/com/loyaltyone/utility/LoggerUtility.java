@@ -26,19 +26,19 @@ public class LoggerUtility {
 		LoggerUtility.log = log;
 	}
 
-	public void info(String message) {
-		log.info(name +" - "+message);
-		messageList.add(name +":"+ log.getLevel()+ " - "+ message + "\n");
-	}
+
+	public void info(String message) { log.info(message); messageList.add(name
+			+":"+ log.getLevel()+ " - "+ message + "\n"); }
+
 
 	public void error(String message) {
-		log.error(name +" - "+message);
+		log.error(message);
 		messageList.add(name +":"+ log.getLevel()+ " - "+ message + "\n");
 
 	}
 
 	public void warning(String message) {
-		log.warn(name +" - "+message);
+		log.warn(message);
 		messageList.add(name +":"+ log.getLevel()+ " - "+ message + "\n");
 
 	}

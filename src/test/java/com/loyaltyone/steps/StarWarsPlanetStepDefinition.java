@@ -3,16 +3,17 @@ package com.loyaltyone.steps;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 
 import com.google.gson.Gson;
 import com.loyaltyone.response.Planet;
 import com.loyaltyone.response.Planets;
 import com.loyaltyone.utility.HttpUtility;
-import com.loyaltyone.utility.LoggerUtility;
 import com.loyaltyone.utility.StarWarsPropertyReader;
 
 import cucumber.api.java.en.Given;
@@ -28,8 +29,7 @@ public class StarWarsPlanetStepDefinition {
 	StarWarsPropertyReader reader = new StarWarsPropertyReader();
 	int planetListCounter = 0;
 	int loopCounter = 0;
-	LoggerUtility log = new LoggerUtility("StarWarsPlanetStepDefinition");
-
+	Logger log = Logger.getLogger(StarWarsPlanetStepDefinition.class.getName());
 
 	@Given("The Planets API is called")
 	public void callPlanetsApi() {
@@ -165,7 +165,14 @@ public class StarWarsPlanetStepDefinition {
 
 @Given("^The user is able to search for planet \"([^\"]*)\"$")
 public void the_API_is_able_to_search_for_planet(String searchString) {
-	String searchApiEndpoint = reader.getPlanetSearchAPI().replace("{{search_input}}", searchString);
+	String planet_name;
+	planet_name=System.getProperty("planet_name");
+	
+	searchString=(planet_name==null)?searchString:planet_name;
+	log.info("Searching for "+ searchString);
+	
+	String searchApiEndpoint = reader.getPlanetSearchAPI().replace("{{search_input}}",
+			URLEncoder.encode(searchString));
 	log.info(searchApiEndpoint);
 	StringBuffer result = new StringBuffer();
 	HttpResponse response = HttpUtility.sendGet(searchApiEndpoint);
