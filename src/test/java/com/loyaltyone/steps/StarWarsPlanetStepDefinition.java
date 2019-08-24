@@ -20,10 +20,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-/**
- * Defines the steps for each scenario related to planet feature file.
- * Implements functional logic to support search of planet, retrieve planets.
- * */
 public class StarWarsPlanetStepDefinition {
 
 	Planet aPlanet = new Planet();
